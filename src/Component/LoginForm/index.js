@@ -9,17 +9,14 @@ function LoginForm() {
     const [message, setMessage] = useState('');
     const [showPass, setShowPass] = useState('password');
     const [redirectTo, setRedirectTo] = useState(null);
+    const [loading, setLoading] = useState(false);
     const navigate = useNavigate();
 
     useEffect(() => {
-        const fetchUsername = () => {
-            const token = Cookies.get('token');
-            if (token) {
-                navigate('/home');
-            }
-        };
-
-        fetchUsername();
+        const token = Cookies.get('token');
+        if (token) {
+            navigate('/home');
+        }
     }, [navigate]);
 
     const handleInputChange = (e) => {
@@ -33,6 +30,9 @@ function LoginForm() {
 
     const handleLogin = async (e) => {
         e.preventDefault();
+        setLoading(true);
+        setMessage('');
+
         try {
             const response = await fetch('http://localhost:5000/login', {
                 method: 'POST',
@@ -49,12 +49,13 @@ function LoginForm() {
                 setRedirectTo('/home');
             } else {
                 setMessage(data.message || 'Login failed. Please try again.');
-                navigate('/')
+                navigate('/');
             }
         } catch (error) {
             setMessage('Login failed. Please try again.');
-            navigate('/')
-
+            navigate('/');
+        } finally {
+            setLoading(false);
         }
     };
 
@@ -117,13 +118,17 @@ function LoginForm() {
                 </div>
 
                 {message && <p className="login-form__error">{message}</p>}
-                <button type="submit" className="btn">
-                    Login
+
+                {loading && <div className='overlay'><div className="loader"></div></div>}
+
+                <button type="submit" className="btn" disabled={loading}>
+                    {loading ? 'Logging in...' : 'Login'}
                 </button>
                 <button
                     type="button"
                     className="login-form__button"
                     onClick={onHandleSignup}
+                    disabled={loading}
                 >
                     Signup
                 </button>

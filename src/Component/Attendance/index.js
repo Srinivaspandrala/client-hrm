@@ -73,7 +73,7 @@ const AttendancePage = () => {
       <button className="info-heading" onClick={handleNavigationAttendanceRequests}>Attendance Requests</button>
     </div>
   </div>
-  <div className="table-container"> {/* Add this wrapper */}
+  <div className="table-container">
     <table className="attendance-table">
       <thead>
         <tr>

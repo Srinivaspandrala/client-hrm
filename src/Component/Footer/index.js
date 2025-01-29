@@ -5,7 +5,7 @@ import { FaRegCopyright } from "react-icons/fa";
 const Footer = () => {
     return (
         <footer className="footer">
-            <p>Copyright <FaRegCopyright /> 2025 brightcom group All Rights Reserved|Privacy Policy</p>
+            <p>Copyright <FaRegCopyright /> 2025 GTS All Rights Reserved|Privacy Policy</p>
         </footer> 
     );
 };

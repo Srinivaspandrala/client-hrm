@@ -77,7 +77,7 @@ const Sidebar = () => {
             setOpen: setAttendanceOpen,
             subItems: [
                 { label: 'Attendance Logs', path: '/attendancelogs' },
-                { label: 'Attendance Requests', path: '/attendancerequests' },
+                { label: 'Attendance Requests', path: '/attendancerequest' },
                 { label: 'Timings', path: '/timings' },
             ],
         },
