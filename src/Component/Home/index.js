@@ -110,7 +110,7 @@ const Home = () => {
                     <div className="timing-details-body">Duration: {totalDuration} HRS</div>
                 </div>
 
-                <div className="container">
+                <div className="container-attendance-detalis">
                     <h3 className="tl">Attendance Details</h3>
                     <div className="section">
                         <div className="row">

@@ -44,23 +44,22 @@ function LoginForm() {
 
             const data = await response.json();
             if (response.ok) {
-                Cookies.set('token', data.token, { expires: 1 });
+                Cookies.set('token', data.user.token, { expires: 1 }); // Set token to expire in 5 minutes
+                Cookies.set('fullname', data.user.fullname, { expires: 1 }); // Set fullname to expire in 5 minutes
                 setMessage('Login successful!');
                 setRedirectTo('/home');
             } else {
                 setMessage(data.message || 'Login failed. Please try again.');
-                navigate('/');
             }
         } catch (error) {
             setMessage('Login failed. Please try again.');
-            navigate('/');
         } finally {
             setLoading(false);
         }
     };
 
     const onHandleSignup = () => {
-        setRedirectTo('/register');
+        navigate('/register');
     };
 
     const onShowPass = () => {
@@ -119,11 +118,10 @@ function LoginForm() {
 
                 {message && <p className="login-form__error">{message}</p>}
 
-                {loading && <div className='overlay'><div className="loader"></div></div>}
-
-                <button type="submit" className="btn" disabled={loading}>
+                <button type="submit" className="btnlogin" disabled={loading}>
                     {loading ? 'Logging in...' : 'Login'}
                 </button>
+
                 <button
                     type="button"
                     className="login-form__button"
@@ -133,6 +131,18 @@ function LoginForm() {
                     Signup
                 </button>
             </form>
+            {loading && (
+                <div className='overlay'>
+                    <div class="loader">
+                        <div class="bar1"></div>
+                        <div class="bar2"></div>
+                        <div class="bar3"></div>
+                        <div class="bar4"></div>
+                        <div class="bar5"></div>
+                        <div class="bar6"></div>
+                        </div>
+                </div>
+            )}
         </div>
     );
 }

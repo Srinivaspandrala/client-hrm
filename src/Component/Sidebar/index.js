@@ -1,80 +1,48 @@
-import React, { useState, useEffect, useCallback } from 'react'; 
+import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import Cookies from 'js-cookie';
-import { FaUser, FaCalendar, FaBell, FaCog, FaSignOutAlt, FaEnvelope, FaHome, FaClock, FaCalendarCheck, FaMoneyBill, FaBuilding, FaChevronDown, FaChevronUp } from 'react-icons/fa';
-import 'bootstrap/dist/css/bootstrap.min.css';
-import './index.css';
-import { Navbar, Container, Nav, Dropdown } from 'react-bootstrap';
-import { Link, useNavigate } from 'react-router-dom';
-import { MdKeyboardDoubleArrowRight } from "react-icons/md";
-import { MdOutlineKeyboardDoubleArrowLeft } from "react-icons/md";
+import {
+    MdKeyboardDoubleArrowRight,
+    MdOutlineKeyboardDoubleArrowLeft,
+} from "react-icons/md";
+import {
+    FaUser,
+    FaClock,
+    FaCalendarCheck,
+    FaMoneyBill,
+    FaBuilding,
+    FaChevronUp,
+    FaChevronDown,
+} from "react-icons/fa";
+import './index.css'; // Ensure proper styling is provided
 
-const Sidebar = () => {
-    const [attendanceOpen, setAttendanceOpen] = useState(false);
-    const [leaveOpen, setLeaveOpen] = useState(false);
-    const [financesOpen, setFinancesOpen] = useState(false);
-    const [organisationOpen, setOrganisationOpen] = useState(false);
+const Sidebar = ({ onToggle = () => {} }) => {
+    const [expandedSections, setExpandedSections] = useState({});
     const [isExpanded, setIsExpanded] = useState(true);
-    const [username, setUsername] = useState('User');
     const navigate = useNavigate();
-
-    // Wrap fetchUsername in useCallback to avoid unnecessary recreation
-    const fetchUsername = useCallback(async () => {
-        const token = Cookies.get('token');
-        if (!token) {
-            console.error('Token not found');
-            navigate('/login');
-            return;
-        }
-
-        try {
-            const response = await fetch('http://localhost:5000/employee', {
-                method: 'GET',
-                headers: {
-                    'Authorization': `Bearer ${token}`,
-                },
-            });
-
-            const data = await response.json();
-            if (response.ok) {
-                setUsername(data.employee.FullName || 'User');
-            } else {
-                console.error('Failed to fetch data:', data.message);
-                navigate('/')
-            }
-        } catch (error) {
-            console.error('Error fetching data:', error);
-        }
-    }, [navigate]);
-
-    useEffect(() => {
-        fetchUsername();
-    }, [fetchUsername]);
-
-    const handleLogout = async () => {
-        const token = Cookies.get('token'); // Retrieve the token from cookies
-        
-            if (!token) {
-                navigate('/'); // Navigate to home page
-            } else {
-                Cookies.remove('token'); // Remove token from cookies
-                navigate('/'); // Navigate to home page
-            }
-       
-    };
-
-    
-    
+    const username = Cookies.get('fullname'); // Fetch username from cookies if stored
 
     const handleNavigation = (path) => {
         navigate(path);
+    };
+
+    const toggleSection = (section) => {
+        setExpandedSections((prevState) => ({
+            ...prevState,
+            [section]: !prevState[section],
+        }));
+    };
+
+    const handleToggleSidebar = () => {
+        setIsExpanded(!isExpanded);
+        onToggle(!isExpanded);
     };
 
     const menuItems = [
         {
             title: 'Attendance',
             icon: <FaClock />,
-            isOpen: attendanceOpen,
-            setOpen: setAttendanceOpen,
+            section: 'attendance',
             subItems: [
                 { label: 'Attendance Logs', path: '/attendancelogs' },
                 { label: 'Attendance Requests', path: '/attendancerequest' },
@@ -84,8 +52,7 @@ const Sidebar = () => {
         {
             title: 'Leave',
             icon: <FaCalendarCheck />,
-            isOpen: leaveOpen,
-            setOpen: setLeaveOpen,
+            section: 'leave',
             subItems: [
                 { label: 'Casual Leave', path: '/casualleave' },
                 { label: 'Paid Leave', path: '/paidleave' },
@@ -95,8 +62,7 @@ const Sidebar = () => {
         {
             title: 'Finances',
             icon: <FaMoneyBill />,
-            isOpen: financesOpen,
-            setOpen: setFinancesOpen,
+            section: 'finances',
             subItems: [
                 { label: 'Summary', path: '/financesummary' },
                 { label: 'Salary Slip', path: '/salaryslip' },
@@ -105,8 +71,7 @@ const Sidebar = () => {
         {
             title: 'Organisation',
             icon: <FaBuilding />,
-            isOpen: organisationOpen,
-            setOpen: setOrganisationOpen,
+            section: 'organisation',
             subItems: [
                 { label: 'Documents', path: '/documents' },
                 { label: 'Employees', path: '/employees' },
@@ -115,98 +80,53 @@ const Sidebar = () => {
     ];
 
     return (
-        <div className="d-flex">
-            <div className={`sidebar ${isExpanded ? 'expanded' : 'collapsed'}`}>
-                <div className="user-section">
-                    <FaUser className="user-logo" />
-                    {isExpanded && <h4 className="username">{username}</h4>}
-                </div>
+        <div className={`sidebar ${isExpanded ? 'expanded' : 'collapsed'}`}>
+            <div
+                className="toggle-icon"
+                onClick={handleToggleSidebar}
+            >
+                {isExpanded ? (
+                    <MdOutlineKeyboardDoubleArrowLeft size={29} />
+                ) : (
+                    <MdKeyboardDoubleArrowRight size={29} />
+                )}
+            </div>
 
-                {isExpanded && <p className="user-role">SOFTWARE ENGINEER</p>}
+            <div className="user-section">
+                <FaUser className="user-logo" />
+                {isExpanded && <h4 className="username">{username || 'User'}</h4>}
+            </div>
+            {isExpanded && <p className="user-role">SOFTWARE ENGINEER</p>}
 
-                {menuItems.map((item, index) => (
-                    <div key={index}>
-                        <div
-                            className="sidebar-item"
-                            onClick={() => item.setOpen(!item.isOpen)}
-                        >
-                            {item.icon}
-                            {isExpanded && <span>{item.title}</span>}
-                            {item.isOpen ? <FaChevronUp className="dropdown-icon" /> : <FaChevronDown className="dropdown-icon" />}
-                        </div>
-                        {item.isOpen && isExpanded && (
-                            <ul className="dropdown-content">
-                                {item.subItems.map((subItem, subIndex) => (
-                                    <li
-                                        key={subIndex}
-                                        className="sidebar-subitem"
-                                        onClick={() => handleNavigation(subItem.path)}
-                                    >
-                                        {subItem.label}
-                                    </li>
-                                ))}
-                            </ul>
+            {menuItems.map((item, index) => (
+                <div key={index} className="menu-section">
+                    <div
+                        className="sidebar-item"
+                        onClick={() => toggleSection(item.section)}
+                    >
+                        {item.icon}
+                        {isExpanded && <span>{item.title}</span>}
+                        {expandedSections[item.section] ? (
+                            <FaChevronUp className="dropdown-icon" />
+                        ) : (
+                            <FaChevronDown className="dropdown-icon" />
                         )}
                     </div>
-                ))}
-            </div>
-
-            <div className={`main-content w-100 ${isExpanded ? 'expanded' : 'collapsed'}`}>
-                <Navbar variant="light" expand="lg" className='nv'>
-                    <Container fluid className="d-flex justify-content-between align-items-center">
-                        <Nav className="d-flex align-items-center">
-                            <Nav.Link onClick={() => setIsExpanded(!isExpanded)} className="toggle-icon">
-                                {isExpanded ? <MdOutlineKeyboardDoubleArrowLeft size={29} /> : <MdKeyboardDoubleArrowRight size={29}  />}
-                            </Nav.Link>
-                        </Nav>
-
-                        <Navbar.Collapse>
-                            <Nav className="d-flex align-items-center">
-                                <Nav.Link href="#">
-                                    <FaBell size={20} />
-                                </Nav.Link>
-                                <Nav.Link href="#">
-                                    <FaEnvelope size={20} />
-                                </Nav.Link>
-                            </Nav>
-
-                            <Nav className="d-flex justify-content-center flex-grow-1">
-                                <form className="d-flex w-75">
-                                    <input
-                                        className="form-control"
-                                        type="search"
-                                        placeholder="Search"
-                                        aria-label="Search"
-                                    />
-                                </form>
-                            </Nav>
-
-                            <Nav className="d-flex align-items-center">
-                                <Nav.Link>
-                                   <Link to="/calendar" className='lk'><FaCalendar size={20} /></Link> 
-                                </Nav.Link>
-                                <Nav.Link>
-                                    <Link to="/home" className='lk'> <FaHome size={20} /></Link>
-                                </Nav.Link>
-                                <Dropdown align="end">
-                                    <Dropdown.Toggle variant="light" id="dropdown-basic" style={{ backgroundColor: "#fff" }}>
-                                        <FaUser /> {username}
-                                    </Dropdown.Toggle>
-
-                                    <Dropdown.Menu>
-                                        <Dropdown.Item onClick={() => handleNavigation('/profile')}>
-                                            <FaCog /> Profile
-                                        </Dropdown.Item>
-                                        <Dropdown.Item onClick={handleLogout}>
-                                            <FaSignOutAlt /> Logout
-                                        </Dropdown.Item>
-                                    </Dropdown.Menu>
-                                </Dropdown>
-                            </Nav>
-                        </Navbar.Collapse>
-                    </Container>
-                </Navbar>
-            </div>
+                    {expandedSections[item.section] && isExpanded && (
+                        <ul className="dropdown-content">
+                            {item.subItems.map((subItem, subIndex) => (
+                                <li
+                                    key={subIndex}
+                                    className="sidebar-subitem"
+                                    onClick={() => handleNavigation(subItem.path)}
+                                >
+                                    {subItem.label}
+                                </li>
+                            ))}
+                        </ul>
+                    )}
+                </div>
+            ))}
         </div>
     );
 };

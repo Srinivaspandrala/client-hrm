@@ -1,7 +1,6 @@
 import React, { Component } from "react";
-import { Navigate, Link } from "react-router-dom";
+import { Navigate} from "react-router-dom";
 import "bootstrap/dist/css/bootstrap.min.css"; // Import Bootstrap for styling
-import Cookies from "js-cookie";
 
 import "./index.css";
 
@@ -113,8 +112,8 @@ class RegisterForm extends Component {
             <hr className="form-separator" />
             {showSubmitError && <p className="form-error-message">{errorMsg}</p>} {/* Display error message if submission failed */}
             <div className="form-input-group">
-              <label className="input-label" htmlFor="fullname">
-                FULLNAME
+              <label className="input-label" htmlFor="fullname" style={{ color: '#333' }}>
+                Fullname
               </label>
               <input
                 type="text"
@@ -127,8 +126,8 @@ class RegisterForm extends Component {
               />
             </div>
             <div className="form-input-group">
-              <label className="input-label" htmlFor="email">
-                WORK EMAIL
+              <label className="input-label" htmlFor="email" style={{ color: '#333' }}>
+                Work Email
               </label>
               <input
                 type="email"
@@ -141,13 +140,13 @@ class RegisterForm extends Component {
               />
             </div>
             <div className="form-input-group">
-              <label className="input-label" htmlFor="gender">
-                GENDER
+              <label className="input-label" htmlFor="gender" style={{ color: '#333' }}>
+                Gender
               </label>
               <select
                 id="gender"
                 name="gender"
-                className="select-field"
+                className="input-field" // Changed from "select-field" to "input-field"
                 value={gender}
                 onChange={this.handleInputChange}
                 required
@@ -159,8 +158,8 @@ class RegisterForm extends Component {
               </select>
             </div>
             <div className="form-input-group">
-              <label className="input-label" htmlFor="dateofbirth">
-                DATE OF BIRTH
+              <label className="input-label" htmlFor="dateofbirth" style={{ color: '#333' }}>
+                Date of Birth
               </label>
               <input
                 type="date"
@@ -173,8 +172,8 @@ class RegisterForm extends Component {
               />
             </div>
             <div className="form-input-group">
-              <label className="input-label" htmlFor="country">
-                COUNTRY
+              <label className="input-label" htmlFor="country" style={{ color: '#333' }}>
+                Country
               </label>
               <input
                 type="text"
@@ -187,8 +186,8 @@ class RegisterForm extends Component {
               />
             </div>
             <div className="form-input-group">
-              <label className="input-label" htmlFor="company">
-                COMPANY
+              <label className="input-label" htmlFor="company" style={{ color: '#333' }}>
+                Company
               </label>
               <input
                 type="text"
@@ -201,8 +200,8 @@ class RegisterForm extends Component {
               />
             </div>
             <div className="form-input-group">
-              <label className="input-label" htmlFor="aboutyourself">
-                ABOUT YOURSELF
+              <label className="input-label" htmlFor="aboutyourself" style={{ color: '#333' }}>
+                About Yourself
               </label>
               <textarea
                 id="aboutyourself"

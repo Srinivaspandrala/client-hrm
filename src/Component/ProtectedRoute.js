@@ -5,6 +5,9 @@ const ProtectedRoute = ({ children }) => {
     const isAuthenticated = Cookies.get('token');
 
     if (!isAuthenticated) {
+        Cookies.remove('token');
+        Cookies.remove('username');
+        alert('Your session has expired. Please log in again.');
         return <Navigate to="/" />;
     }
 

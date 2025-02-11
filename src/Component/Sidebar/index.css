@@ -1,9 +1,3 @@
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-}
-
 .sidebar {
     position: fixed;
     top: 0;
@@ -12,34 +6,37 @@
     width: 250px;
     transition: all 0.3s ease;
     overflow: hidden;
-    background-color: #162F57;
-    border-radius: 0px 10px 10px 0px;
-
+    background: linear-gradient(150deg, #02499b, #0257ac);
+    border-radius: 0px 15px 15px 0px;
+    z-index: 1000;
 }
 
 .sidebar.collapsed {
-    width: 80px; 
+    width: 90px;
+    border-radius: 0px 0px 0px 0px;
+
 }
 
 .main-content {
-    margin-left: 250px; 
+    margin-left: 250px;
     transition: margin-left 0.3s ease;
 }
 
 .main-content.collapsed {
-    margin-left: 80px; 
+    margin-left: 80px;
 }
 
 .sidebar-item {
-    padding: 15px;
-    color: #fff;
+    padding: 10px;
+    color: #ffffff;
     display: flex;
+    font-weight: 500;
     align-items: center;
     cursor: pointer;
-    margin: 5px 16px;
+    margin: 13px 25px;
     transition: background-color 0.3s;
     justify-content: space-between;
-    gap:10px;
+    gap: 10px;
 }
 
 .sidebar.collapsed .sidebar-item span {
@@ -47,16 +44,16 @@
 }
 
 .sidebar.collapsed .dropdown-icon {
-    display: none; 
+    display: none;
 }
 
 .sidebar.dropdown-icon {
-    display: inline-block; 
+    display: inline-block;
     padding: 10px;
 }
 
 .sidebar.collapsed .sidebar-item .dropdown-icon {
-    display: none; 
+    display: none;
 }
 
 .sidebar.expanded .sidebar-item .dropdown-icon {
@@ -67,7 +64,7 @@
     padding: 20px;
     text-align: center;
     margin-bottom: 0px;
-    padding-bottom:5px;
+    padding-bottom: 5px;
 }
 
 .user-logo {
@@ -75,10 +72,10 @@
     color: #fff;
     transition: all 0.3s ease;
 }
-.username{
+
+.username {
     color: #fff;
 }
-
 
 .user-role {
     font-size: 14px;
@@ -89,16 +86,39 @@
     margin-top: 0px;
     border-radius: 10px;
     cursor: pointer;
-    background-color: #032645;
 }
-.lk{
+
+.lk {
     list-style-type: none;
     color: #162F57;
 }
+
 .sidebar.collapsed .user-role {
     display: none;
 }
 
+.toggle-icon {
+    background-color: #ffffff;
+    color: #515f6d;
+    padding: 1px;
+    border-top-left-radius: 25px;
+    border-bottom-left-radius: 25px;
+    margin-top: 18px;
+    position: relative;
+    z-index: 1001; /* Ensure toggle icon is above the navbar */
+}
+
+.sidebar.expanded .toggle-icon {
+    margin-left: 180px;
+}
+
+.sidebar.collapsed .toggle-icon {
+    margin-left: 35px;
+}
+
+.toggle-icon {
+    transition: margin-left 0.3s ease;
+}
 
 .sidebar.expanded .user-logo {
     border-radius: 50%;
@@ -127,12 +147,13 @@
     list-style-type: circle;
 }
 
-.nv{
+.nv {
     border: none !important;
     background-color: transparent;
     padding: 14px;
     padding-left: 0px;
 }
+
 .sidebar-subitem:hover {
     transition: 0.3s;
     scale: 1.1;
@@ -149,91 +170,4 @@
 .dropdown-content {
     padding-left: 20px;
     margin-left: 20px;
-}
-
-.navbar {
-    top: 0;
-    left: 0;
-    right: 0;
-    z-index: 999;
-    border: 1px solid #c9d3da;
-    box-shadow: 0 2px 5px #0000001a;
-    background-color: #fff;
-    position: sticky;
-}
-
-.navbar .navbar-nav {
-    flex-direction: row;
-}
-
-.navbar .nav-link {
-    margin-left: 15px;
-    color: #34495e;
-    transition: color 0.3s ease;
-}
-
-.navbar .nav-link:hover {
-    color: #009ffd;
-}
-
-.navbar .form-control {
-    width: 100%;
-    max-width: 500px;
-    margin-left: auto;
-    margin-right: auto;
-    padding: 8px 15px;
-    border-radius: 10px;
-    border: 2px solid #ddd;
-    transition: border-color 0.3s ease;
-}
-.dropdown-menu {
-    z-index: 1050 !important; /* Ensure it appears above other content */
-    margin-top: 0; /* Adjust spacing if necessary */
-}
-
-.navbar .dropdown-toggle {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    color: #34495e;
-    text-decoration: none;
-}
-
-.navbar .dropdown-toggle:hover {
-    color: #009ffd;
-}
-
-.navbar .form-control:focus {
-    border-color: #009ffd;
-}
-
-@media (max-width: 768px) {
-    .sidebar {
-        width: 100%;
-        height: auto;
-    }
-
-    .sidebar.expanded {
-        width: 100%;
-    }
-
-    .main-content {
-        margin-left: 0;
-    }
-
-    .navbar .navbar-nav {
-        flex-direction: column;
-        align-items: flex-start;
-    }
-
-    .navbar .nav-link {
-        margin-left: 0;
-        margin-bottom: 10px;
-    }
-
-    .navbar .form-control {
-        width: 100%;
-        max-width: 100%;
-        margin: 0;
-    }
 }

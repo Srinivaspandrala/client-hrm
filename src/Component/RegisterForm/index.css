@@ -1,11 +1,6 @@
 @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap');
 
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-  font-family: 'Roboto', sans-serif;
-}
+
 
 .form-separator {
   padding: 0px;
@@ -20,7 +15,6 @@
   height: 100%;
   width: 100%;
   padding: 10px;
-  background-color: #fafafa;
 }
 
 .register-form-content {
@@ -47,14 +41,14 @@
 .form-title {
   font-size: 28px;
   font-weight: 700;
-  color: #000000;
+  color: #333; /* updated color */
   margin-bottom: 10px;
 }
 
 .form-description {
   font-size: 14px;
   font-weight: 500;
-  color: #4d4d4d;
+  color: #333; /* updated color */
   margin-bottom: 20px;
 }
 
@@ -84,9 +78,9 @@
 }
 
 .input-label {
-  font-size: 12px;
-  font-weight: bold;
-  color: #000000;
+  font-size: 14px; /* updated to match login.css */
+  font-weight: 600; /* updated to match login.css */
+  color: #333; /* updated color */
   margin-bottom: 5px;
 }
 
@@ -94,7 +88,7 @@
 .select-field,
 .textarea-field {
   font-size: 14px;
-  color: #000000;
+  color: #333; /* updated color */
   border: none;
   border-bottom: 1px solid #2d2d2d;
   background-color: transparent;
@@ -108,12 +102,12 @@
 .input-field::placeholder, 
 .select-field::placeholder, 
 .textarea-field::placeholder { 
-  color: #2E3833;
+  color: #2e3833;
   opacity: 0.8;
 }
 
 .submit-button {
-  background-color: #0B5EDA;
+  background-color: #0b5eda;
   color: #ffffff;
   border: none;
   border-radius: 6px;
@@ -126,8 +120,8 @@
 
 .submit-button:hover {
   background-color: #ffffff;
-  border: 2px solid #1852A9;
-  color: #000000;
+  border: 2px solid #1852a9;
+  color: #333; /* updated color */
   transition: 0.3s ease-in-out;
 }
 

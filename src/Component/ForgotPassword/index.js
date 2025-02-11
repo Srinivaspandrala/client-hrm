@@ -44,8 +44,8 @@ const ForgotPassword = () => {
           <h1 className="heading">Forgot Password?</h1>
           <p className="pa1">
             Remember your password?{" "}
-            <Link className="lk" to="/">
-              <span className="sp1">Sign in here</span>
+            <Link className="lk" to="/register">
+              <span className="span-sign">Sign in here</span>
             </Link>
           </p>
         </div>
