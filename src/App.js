@@ -1,6 +1,4 @@
-import React, { useEffect } from 'react';
-import { BrowserRouter as Router, Route, Routes, useNavigate } from 'react-router-dom';
-import Cookies from 'js-cookie';
+import { BrowserRouter as Router, Route, Routes} from 'react-router-dom';
 import CalendarComponent from './Component/Calendar';
 import AttendancePage from './Component/Attendance';
 import LeaveForm from './Component/Leave';
@@ -16,48 +14,42 @@ import AttendanceRequest from './Component/AttendanceRequest';
 import AdvancedEmailForm from './Component/Emali/inboxindex';
 import ProtectedRoute from './Component/ProtectedRoute';
 import EmployeePage from './Component/Empolyeedetalis';
+import Dashboard from './Component/Dashboard';
+import ListEmployee from './Component/EmployeeMangement/ListEmployee';
+import AddEmployee from './Component/EmployeeMangement/AddEmployee';
+import EmployeeOverview from './Component/EmployeeMangement/EmployeeOverview';
+import SystemConfiguration from './Component/SystemConfiguration';
+import AdminAttendenceReqp from './Component/Admin_AttendanceRequest';
 import './App.css';
 
 const App = () => {
     return (
         <Router>
-            <AppRoutes />
+            <div>
+                <Routes>
+                    <Route path="/" element={<LoginForm /> }  />
+                    <Route path="/register" element={<RegisterForm />} />
+                    <Route path="/forgotpassword" element={<ForgotPassword />} />
+                    <Route path="/home" element={<ProtectedRoute role="Employee"><Sidebar/><NavbarComponent /><Home /> </ProtectedRoute>}/>
+                    <Route path="/calendar"element={<ProtectedRoute role="Employee"><Sidebar/><NavbarComponent /><CalendarComponent /></ProtectedRoute>}/>
+                    <Route path="/paidleave" element={<ProtectedRoute role="Employee"><Sidebar/><NavbarComponent /><LeaveForm /></ProtectedRoute>}/>
+                    <Route path="/unpaidleave" element={<ProtectedRoute role="Employee"><Sidebar/><NavbarComponent /><LeaveForm /></ProtectedRoute>}/>
+                    <Route path="/casualleave" element={<ProtectedRoute role="Employee"><Sidebar/><NavbarComponent /><LeaveForm /></ProtectedRoute>}/>
+                    <Route path="/attendancelogs" element={ <ProtectedRoute role="Employee"> <Sidebar/><NavbarComponent /> <AttendancePage /></ProtectedRoute>}/>
+                    <Route path="/notification" element={ <ProtectedRoute role="Employee"> <Sidebar/><NavbarComponent /> <Notification/></ProtectedRoute>}/>
+                    <Route path="/attendancerequest" element={<ProtectedRoute role="Employee"><Sidebar/><NavbarComponent /><AttendanceRequest/></ProtectedRoute>}/>
+                    <Route path="/emali" element={<ProtectedRoute role="Employee"><Sidebar/><NavbarComponent /><AdvancedEmailForm/></ProtectedRoute>}/>
+                    <Route path='/empolyeepage' element={<ProtectedRoute role="Employee"><EmployeePage/></ProtectedRoute>}/>
+                    <Route path="/dashboard" element={<ProtectedRoute role="Admin"><Sidebar/><NavbarComponent /><Dashboard/></ProtectedRoute>}/>
+                    <Route path="/manageemployee" element={<ProtectedRoute role="Admin"><Sidebar/><NavbarComponent /><ListEmployee/></ProtectedRoute>}/>
+                    <Route path="/addemployee" element={<ProtectedRoute role="Admin"><Sidebar/><NavbarComponent /><AddEmployee/></ProtectedRoute>}/>
+                    <Route path="/systemconfiguration" element={<ProtectedRoute role="Admin"><Sidebar/><NavbarComponent /><SystemConfiguration/></ProtectedRoute>}/>
+                    <Route path='/overviewemployee/:id' element={<ProtectedRoute role="Admin"><Sidebar/><NavbarComponent/><EmployeeOverview/></ProtectedRoute>}/>
+                    <Route path="/employeeattendancerequest" element={<ProtectedRoute role="Admin"><Sidebar/><NavbarComponent/><AdminAttendenceReqp/></ProtectedRoute>}></Route>
+                </Routes>
+                <Footer/>
+            </div>
         </Router>
-    );
-};
-
-const AppRoutes = () => {
-    const navigate = useNavigate();
-    const token = Cookies.get('token');
-
-    useEffect(() => {
-        if (!token && window.location.pathname !== '/register' && window.location.pathname !== '/forgotpassword') {
-            Cookies.remove('username');
-            Cookies.remove('token');
-            navigate('/');
-        }
-    }, [token, navigate]);
-
-    return (
-        <div>
-
-            <Routes>
-                <Route path="/" element={<LoginForm /> }  />
-                <Route path="/register" element={<RegisterForm />} />
-                <Route path="/forgotpassword" element={<ForgotPassword />} />
-                <Route path="/home" element={<ProtectedRoute><Sidebar/><NavbarComponent /><Home /> </ProtectedRoute>}/>
-                <Route path="/calendar"element={<ProtectedRoute><Sidebar/><NavbarComponent /><CalendarComponent /></ProtectedRoute>}/>
-                <Route path="/paidleave" element={<ProtectedRoute><Sidebar/><NavbarComponent /><LeaveForm /></ProtectedRoute>}/>
-                <Route path="/unpaidleave" element={<ProtectedRoute><Sidebar/><NavbarComponent /><LeaveForm /></ProtectedRoute>}/>
-                <Route path="/casualleave" element={<ProtectedRoute><Sidebar/><NavbarComponent /><LeaveForm /></ProtectedRoute>}/>
-                <Route path="/attendancelogs" element={ <ProtectedRoute> <Sidebar/><NavbarComponent /> <AttendancePage /></ProtectedRoute>}/>
-                <Route path="/notification" element={ <ProtectedRoute> <Sidebar/><NavbarComponent /> <Notification/></ProtectedRoute>}/>
-                <Route path="/attendancerequest" element={<ProtectedRoute><Sidebar/><NavbarComponent /><AttendanceRequest/></ProtectedRoute>}/>
-                <Route path="/emali" element={<ProtectedRoute><Sidebar/><NavbarComponent /><AdvancedEmailForm/></ProtectedRoute>}/>
-                <Route path='/empolyeepage' element={<ProtectedRoute><EmployeePage/></ProtectedRoute>}/>
-            </Routes>
-            <Footer/>
-        </div>
     );
 };
 

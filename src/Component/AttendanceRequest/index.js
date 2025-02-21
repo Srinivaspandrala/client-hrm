@@ -14,7 +14,7 @@ const AttendanceRequest = () => {
         ?.split("=")[1];
 
       try {
-        const response = await fetch("http://localhost:5000/attendancereq", {
+        const response = await fetch("http://localhost:5000/request", {
           method: "GET",
           headers: {
             Authorization: `Bearer ${token}`,

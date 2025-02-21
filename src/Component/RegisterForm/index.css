@@ -137,6 +137,11 @@
   display: none;
 }
 
+.register-icon{
+  color:#0467ca;
+  font-size: 16px;
+}
+
 /* Responsive Styles for Small Devices */
 @media screen and (max-width: 768px) {
   .register-form-wrapper {

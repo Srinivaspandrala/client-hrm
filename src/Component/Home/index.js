@@ -3,7 +3,6 @@ import './index.css';
 
 const Home = () => {
     const [currentDateTime, setCurrentDateTime] = useState("");
-    const [attendanceLog, setAttendanceLog] = useState(null);
 
     const currentDayIndex = new Date().getDay();
     const daysOfWeek = ["S", "M", "T", "W", "T", "F", "S"];
@@ -36,22 +35,6 @@ const Home = () => {
         return () => clearInterval(intervalId);
     }, []);
 
-    useEffect(() => {
-        const fetchAttendanceLog = async () => {
-            try {
-                const response = await fetch("http://localhost:5000/attendancelog");
-                if (!response.ok) {
-                    throw new Error("Failed to fetch attendance log");
-                }
-                const data = await response.json();
-                setAttendanceLog(data);
-            } catch (error) {
-                console.error("Error fetching attendance log:", error);
-            }
-        };
-
-        fetchAttendanceLog();
-    }, []);
 
     return (
         <div className="home-con">

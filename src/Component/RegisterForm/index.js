@@ -3,6 +3,7 @@ import { Navigate} from "react-router-dom";
 import "bootstrap/dist/css/bootstrap.min.css"; // Import Bootstrap for styling
 
 import "./index.css";
+import { FaBuilding, FaCalendar, FaEnvelope, FaGlobe, FaUserTie, FaVenusMars } from "react-icons/fa";
 
 class RegisterForm extends Component {
   constructor(props) {
@@ -113,7 +114,7 @@ class RegisterForm extends Component {
             {showSubmitError && <p className="form-error-message">{errorMsg}</p>} {/* Display error message if submission failed */}
             <div className="form-input-group">
               <label className="input-label" htmlFor="fullname" style={{ color: '#333' }}>
-                Fullname
+               Fullname
               </label>
               <input
                 type="text"
@@ -127,7 +128,7 @@ class RegisterForm extends Component {
             </div>
             <div className="form-input-group">
               <label className="input-label" htmlFor="email" style={{ color: '#333' }}>
-                Work Email
+                Email
               </label>
               <input
                 type="email"
@@ -141,7 +142,7 @@ class RegisterForm extends Component {
             </div>
             <div className="form-input-group">
               <label className="input-label" htmlFor="gender" style={{ color: '#333' }}>
-                Gender
+            Gender
               </label>
               <select
                 id="gender"
@@ -159,7 +160,7 @@ class RegisterForm extends Component {
             </div>
             <div className="form-input-group">
               <label className="input-label" htmlFor="dateofbirth" style={{ color: '#333' }}>
-                Date of Birth
+              Date of Birth
               </label>
               <input
                 type="date"
@@ -173,21 +174,23 @@ class RegisterForm extends Component {
             </div>
             <div className="form-input-group">
               <label className="input-label" htmlFor="country" style={{ color: '#333' }}>
-                Country
+              Country
               </label>
-              <input
-                type="text"
+              <select
                 id="country"
                 name="country"
                 className="input-field"
                 value={country}
                 onChange={this.handleInputChange}
                 required
-              />
+              >
+                <option value="">Select Country</option>
+                <option value="India">India</option>
+              </select>
             </div>
             <div className="form-input-group">
               <label className="input-label" htmlFor="company" style={{ color: '#333' }}>
-                Company
+              Company
               </label>
               <input
                 type="text"

@@ -160,6 +160,7 @@ function ContentArea({ section }) {
                 <span className="profile-icon" aria-hidden="true">
                   <FontAwesomeIcon icon={employeeDetails.Gender === 'Male' ? faMale : faFemale} />
                 </span>
+                <p className='pp11'><span className='sp-11'>ID: </span>{employeeDetails.EmployeeID || 'N/A'}</p>
                 <p className='pp11'><span className='sp-11'>Name: </span>{employeeDetails.FullName || 'N/A'}</p>
                 <p className='pp11'><span className='sp-11'>Email: </span>{employeeDetails.WorkEmail || 'N/A'}</p>
                 <p className='pp11'><span className='sp-11'>Gender: </span>{employeeDetails.Gender || 'N/A'}</p>
@@ -213,9 +214,9 @@ function ContentArea({ section }) {
           <Card className="contact-card">
             <div className="contact-info">
               <h3>Contact Info</h3>
-              <p className='pp11'><span className='sp-11'>Address:</span> Photo XYZ, APC Appointed City</p>
-              <p className='pp11'><span className='sp-11'>Email:</span> abc@gmail.com</p>
-              <p className='pp11'><span className='sp-11'>Phone:</span> 123-456-7890</p>
+              <p className='pp11'><span className='sp-11'>Address:</span>{employeeDetails.Adress || 'N/A'}</p>
+              <p className='pp11'><span className='sp-11'>Email:</span>{employeeDetails.WorkEmail || 'N/A'}</p>
+              <p className='pp11'><span className='sp-11'>Phone:</span>{employeeDetails.phone || 'N/A'}</p>
             </div>
           </Card>
         </div>
@@ -239,11 +240,11 @@ function ContentArea({ section }) {
               <tbody>
                 <tr>
                   <td><span className="profile-icon1" aria-hidden="true">👤</span></td>
-                  <td>1241</td>
-                  <td>Sai Ram</td>
-                  <td>Kottu</td>
-                  <td>3 Nov 2022</td>
-                  <td>78M</td>
+                  <td>{employeeDetails.EmployeeID || 'N/A'}</td>
+                  <td>{employeeDetails.firstname|| 'N/A'}</td>
+                  <td>{employeeDetails.lastname || 'N/A'}</td>
+                  <td>{employeeDetails.startdate|| 'N/A'}</td>
+                  <td>{employeeDetails.tenure}</td>
                   <td style={{ color: 'green' }}><FaCheckCircle /> Active</td>
                 </tr>
               </tbody>
@@ -269,10 +270,10 @@ function ContentArea({ section }) {
               <tbody>
                 <tr>
                   <td><span className="profile-icon1" aria-hidden="true">👤</span></td>
-                  <td>1241</td>
-                  <td>Sai Ram Kottu</td>
-                  <td>DD-MM-YY</td>
-                  <td>1</td>
+                  <td>{employeeDetails.EmployeeID || 'N/A'}</td>
+                  <td>{employeeDetails.FullName || 'N/A'}</td>
+                  <td>NA</td>
+                  <td>NA</td>
                   <td>-</td>
                 </tr>
               </tbody>

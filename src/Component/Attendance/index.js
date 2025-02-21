@@ -20,7 +20,7 @@ const AttendancePage = () => {
           return;
         }
 
-        const response = await fetch('http://localhost:5000/attendancelog', {
+        const response = await fetch('http://localhost:5000/logs', {
           method: 'GET',
           headers: {
             'Authorization': `Bearer ${token}`,

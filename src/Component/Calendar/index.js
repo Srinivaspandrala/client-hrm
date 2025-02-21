@@ -112,8 +112,9 @@ const MyCalendar = () => {
             date: newEvent.date,
             startTime: newEvent.startTime,
             endTime: newEvent.endTime,
-            eventType: newEvent.type
+            eventType: newEvent.type // Ensure the field name matches the server expectation
         };
+        console.log('Formatted Event:', formattedEvent); // Log the formatted event
 
         try {
             const response = await fetch('http://localhost:5000/events', {
@@ -126,6 +127,7 @@ const MyCalendar = () => {
             });
 
             const data = await response.json();
+            console.log('Response:', data); // Log the response
 
             if (response.ok) {
                 const newCalendarEvent = {
@@ -143,7 +145,7 @@ const MyCalendar = () => {
                 alert('Error adding event: ' + data.message);
             }
         } catch (error) {
-            console.error('Error adding event:', error);
+            console.error('Error adding event:', error); // Log the error
             alert('There was an error adding the event.');
         }
     };

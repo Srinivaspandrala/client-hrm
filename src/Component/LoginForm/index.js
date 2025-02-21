@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Navigate, Link, useNavigate } from 'react-router-dom';
 import Cookies from 'js-cookie';
 import './index.css';
+import { FaEnvelope, FaLock, FaMailchimp, FaUser, FaEye, FaEyeSlash } from 'react-icons/fa';
 
 function LoginForm() {
     const [email, setEmail] = useState('');
@@ -44,10 +45,16 @@ function LoginForm() {
 
             const data = await response.json();
             if (response.ok) {
-                Cookies.set('token', data.user.token, { expires: 1 }); // Set token to expire in 5 minutes
-                Cookies.set('fullname', data.user.fullname, { expires: 1 }); // Set fullname to expire in 5 minutes
+                Cookies.set('token', data.user.token, { expires: 1 }); // Set token to expire in 1 day
+                Cookies.set('fullname', data.user.fullname, { expires: 1 }); // Set fullname to expire in 1 day
+                const userRole = data.user.role;
+                console.log(userRole);
                 setMessage('Login successful!');
-                setRedirectTo('/home');
+                if (userRole === 'Employee') {
+                    setRedirectTo('/home');
+                } else if (userRole === 'Admin') {
+                    setRedirectTo('/dashboard');
+                }
             } else {
                 setMessage(data.message || 'Login failed. Please try again.');
             }
@@ -74,41 +81,41 @@ function LoginForm() {
         <div className="login-form">
             <form className="login-form__container" onSubmit={handleLogin}>
                 <div className="login-form__input-container">
-                    <label className="login-form__label">Email:</label>
-                    <input
-                        type="email"
-                        name="email"
-                        value={email}
-                        onChange={handleInputChange}
-                        className="login-form__input"
-                        required
-                    />
+                    <label className="login-form__label">
+                        Email/EmployeeID:
+                    </label>
+                    <div>
+                        <input
+                            type="text"
+                            name="email"
+                            value={email}
+                            onChange={handleInputChange}
+                            className="login-form__input"
+                            required
+                        />
+                    </div>
                 </div>
                 <div className="login-form__input-container">
-                    <label className="login-form__label">Password:</label>
-                    <input
-                        type={showPass}
-                        name="password"
-                        value={password}
-                        onChange={handleInputChange}
-                        className="login-form__input"
-                        required
-                    />
+                    <label className="login-form__label">
+                        Password:
+                    </label>
+                    <div className="password-input-container">
+                        <input
+                            type={showPass}
+                            name="password"
+                            value={password}
+                            onChange={handleInputChange}
+                            className="login-form__input"
+                            required
+                        />
+                        <span className="password-toggle-icon" onClick={onShowPass}>
+                            {showPass === 'password' ? <FaEye /> : <FaEyeSlash />}
+                        </span>
+                    </div>
                 </div>
 
                 <div className="login-form__show-password">
-                    <div className="login-form__toggle-password">
-                        <input
-                            type="checkbox"
-                            id="show-password"
-                            onChange={onShowPass}
-                            aria-label="Toggle password visibility"
-                            className="ck"
-                        />
-                        <label className="login-form__checkbox-label" htmlFor="show-password">
-                            Show Password
-                        </label>
-                    </div>
+                    
                     <div className="login-form__forgot-password">
                         <Link className="login-form__link" to="/forgotpassword">
                             Forgot Password?
@@ -140,7 +147,7 @@ function LoginForm() {
                         <div class="bar4"></div>
                         <div class="bar5"></div>
                         <div class="bar6"></div>
-                        </div>
+                    </div>
                 </div>
             )}
         </div>

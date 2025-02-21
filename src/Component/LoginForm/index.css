@@ -35,17 +35,19 @@
 
 .login-form__input {
   border: none;
-  background: transparent;
+  background: #ffffff;
   border-bottom: 1px solid #000000;
   width: 100%;
   padding: 10px;
   font-size: 16px;
   outline: none;
   transition: all 0.3s ease-in-out;
+  margin-top: -20px;
 }
 
 .login-form__input:focus {
   border-bottom: 2px solid #3a4047;
+  background-color: #ffffff;
 }
 
 /* Buttons */
@@ -121,6 +123,18 @@
   color: #000000;
   font-size: 14px;
   font-weight: 400;
+}
+
+.password-input-container {
+  position: relative;
+}
+
+.password-toggle-icon {
+  position: absolute;
+  right: 10px;
+  top: 50%;
+  transform: translateY(-50%);
+  cursor: pointer;
 }
 
 /* Responsive Styles */

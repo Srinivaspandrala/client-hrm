@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import "./index.css";
+import { FaEnvelope } from "react-icons/fa";
 
 const ForgotPassword = () => {
   const [email, setEmail] = useState("");
@@ -52,7 +53,7 @@ const ForgotPassword = () => {
         <form className="form-container1" onSubmit={onSubmitForm}>
           <div className="input-container">
             <label className="input-label" htmlFor="email">
-              Email:
+             <FaEnvelope className="register-icon"/> Email:
             </label>
             <input
               type="email"
